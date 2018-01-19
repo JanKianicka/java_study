@@ -1,5 +1,11 @@
 package java_study;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 class Context {
 	public volatile double[] OutListEncaps;
 	Context(double[] OutListArg){
@@ -80,9 +86,32 @@ class RunnableArray implements Runnable {
 }
 
 
+/**
+ * Test of multithreading with CallAble
+ * 
+ *
+ */
+
+class FactorialTask implements Callable<Integer>{
+	int number;
+	public FactorialTask(int input) {
+		this.number = input;
+	}
+	
+	public Integer call() {
+		int fact=1;
+				
+		for(int count = number; count>1; count --) {
+			fact = fact*number;
+		}
+		return fact;
+	}
+}
+
+
 public class TestThreadArray {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws InterruptedException, ExecutionException {
 		double[] InList = { 1.1, 1.2, 1.3, 1.4 };
 		double[] OutList = { 0.0, 0.0, 0.0, 0.0 };
 		Context Con = new Context(OutList);
@@ -118,7 +147,19 @@ public class TestThreadArray {
 	    
 // 		So it means call of join has resolved the problem.
 	    
+	    // Test of CallAble
+	    FactorialTask task = new FactorialTask(5);
+	    Callable<Integer> callable = new FactorialTask(5);
 	    
-		
+	    System.out.println("Input into callable for factorial: "+task.number);
+	    ExecutorService pool = Executors.newFixedThreadPool(4);
+	    Future<Integer> future = pool.submit(task);
+	    int res = future.get();
+	    System.out.println("Result using FactorialTask: "+res);
+	    
+	    // Now lets try to submit another job into the ThreadPool
+	    Future<Integer> future2_callable = pool.submit(callable);
+	    System.out.println("Result using callable directly: "+ future2_callable.get());
+	    
 	}
 }
