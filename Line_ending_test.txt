@@ -2,3 +2,6 @@ Test of line endings.
 This is the windows file and now has CRLF whereas I am working in notepad.
 Due to my local modification in git config it should be converted to LF
 when stored to github. Lets try it.
+
+Not this modification was done on my Linux machine.
+One more line here.
