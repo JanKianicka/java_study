@@ -15,6 +15,7 @@ public class ArrayTest {
 		sumFindMaxUsingFor();
 		printForeach();
 		tryBinarySearch();
+		tryTwoDimensionalArrays();
 	}
 
 	private static void sumFindMaxUsingFor() {
@@ -83,6 +84,26 @@ public class ArrayTest {
 		Arrays.sort(doubleArr);
 		System.out.println(doubleKey + " found at index = "
                 +Arrays.binarySearch(doubleArr,doubleKey));
+		
+		
+	}
+	
+	private static void tryTwoDimensionalArrays() {
+		double double2DArr[][] = {{0.1, 0.2, 0.3},{0.4, 0.5, 0.6}};
+		System.out.println(double2DArr[0][0]);
+		double[][] double2DArr_2 = new double[3][3];
+		
+		// Arrays.fill(double2DArr_2, 1.7); this does not work for 2D array
+		System.out.println(double2DArr_2[0][0]);
+		double2DArr_2[0][0] = 1.7;
+		System.out.println(double2DArr_2[0][0]);
+		try {
+			double2DArr_2[3][3] = 1.7;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Exception thrown  :" + e);
+			System.err.println("Exception thrown  :" + e);
+		}
 		
 	}
 	
