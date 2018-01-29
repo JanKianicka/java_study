@@ -45,6 +45,17 @@ https://www.tutorialspoint.com/java/java_methods.htm
       // finalization code here
     }
     
+java.io
+Input stream, output stream
+- byte stream in 8-bit
+- standard input, standard output, standard console
+Streams are: File, BiteArray, Filter (two sorts data and buffered), Object
+Ended here:
+https://www.tutorialspoint.com/java/java_files_io.htm
+we need to experiment yet with File, FileReader, FileWriter classes.
+
+
+
 
  
  
