@@ -34,3 +34,19 @@ throws 	transient 	try 	void
 volatile 	while
 
 
+Here I miss whole block of study which I conducted at home.
+We continue in:
+https://www.tutorialspoint.com/java/java_methods.htm
+ - Interesting:
+ 1. Overloading of the method - the same name, but different parameters
+ 2. Overriding of the method - when using inheritance
+ 3. Finalize method is called before destruction by the garbage collector.
+    protected void finalize( ) {
+      // finalization code here
+    }
+    
+
+ 
+ 
+
+
