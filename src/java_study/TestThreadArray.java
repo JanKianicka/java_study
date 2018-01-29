@@ -160,6 +160,7 @@ public class TestThreadArray {
 	    // Now lets try to submit another job into the ThreadPool
 	    Future<Integer> future2_callable = pool.submit(callable);
 	    System.out.println("Result using callable directly: "+ future2_callable.get());
-	    
+	    // We have to shutdown the pool in order to terminate the program.
+	    pool.shutdown();
 	}
 }

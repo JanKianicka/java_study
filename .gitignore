@@ -3,3 +3,4 @@
 bin/java_study/*.class
 bin/java_study
 bin
+src/java_study/*.class
