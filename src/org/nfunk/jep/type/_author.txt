@@ -1,0 +1,20 @@
+Administrator :  Martin Gazak
+                 
+Id            :  $Id: _author.txt,v 1.1 2005/04/08 09:28:16 matog Exp $
+
+Function      :  JEP - Java Expression Parser
+
+Status        :  $Date: 2005/04/08 09:28:16 $
+
+Zakupeny cez http://www.singularsys.com/jep
+
+  $Log: _author.txt,v $
+  Revision 1.1  2005/04/08 09:28:16  matog
+  Pridany JEP 2.3.0. do CVS po zakupeni cez http://www.singularsys.com/jep .
+
+  Pred pridanim prekompilovany na Java 1.5 s nasledovnym vysledkom:
+  - org.nfunk.jepteststring nejde prekompilovat kvoli chybajucemu JUnit package-u.
+  - org.nfunk.evaluation.ExpressionCompiler nejde prekompilovat pod Java 1.5 preto, lebo jedna
+    z lokalnych premennych sa nazyva enum, co je v Java 1.5 rezervovane slovo
+  - funkcie Logarithm, NaturalLogarithm maju nekonzistentne API (log(NaN) vracia Complex(NaN, NaN))
+

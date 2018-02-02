@@ -5,6 +5,7 @@ public class LoopsTest {
 	public static void main(String args[]) {
 		whileLoopTest();
 		forLoopTest();
+		forLoopTwoFoldTest();
 		doWhileLoopTest();
 		enhancedLoopTest();
 		decisionMakeingTest();
@@ -25,6 +26,15 @@ public class LoopsTest {
 	         System.out.print("value of x : " + x );
 	         System.out.print("\n");
 	      }
+	}
+	
+	private static void forLoopTwoFoldTest() {
+		int x,y;
+		for(x=0, y = 0;x <10 || y<5;x++, y++ ) {
+			System.out.println("x = " + x);
+			System.out.println("y = " + y);
+			
+		}
 	}
 	
 	private static void doWhileLoopTest(){
