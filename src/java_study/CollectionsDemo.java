@@ -10,10 +10,16 @@ public class CollectionsDemo {
       m1.put("Mahnaz", "31");
       m1.put("Ayan", "12");
       m1.put("Daisy", "14");
-
+      String z = m1.get("Zara");
       System.out.println();
       System.out.println(" Map Elements");
       System.out.print("\t" + m1);
+      System.out.println("Zara " + z);
+      Set<String> keySet = m1.keySet();
+      for(String key: keySet) {
+    	  System.out.println(m1.get(key));
+    	  
+      }
       
       Map<Integer, String> m2 = new HashMap<Integer, String>();
       m2.put(1, "First value");
