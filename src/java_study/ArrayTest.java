@@ -16,6 +16,7 @@ public class ArrayTest {
 		printForeach();
 		tryBinarySearch();
 		tryTwoDimensionalArrays();
+		tryContains();
 	}
 
 	private static void sumFindMaxUsingFor() {
@@ -105,6 +106,15 @@ public class ArrayTest {
 			System.err.println("Exception thrown  :" + e);
 		}
 		
+	}
+	
+	private static void tryContains() {
+		String[] fileTypes = {"JSON", "XML"};
+		for(String fType: fileTypes) {
+			if(!Arrays.asList(fileTypes).contains("JSONN")) {
+				throw new IllegalArgumentException(String.format("Output file type not defined."));
+			}
+		}
 	}
 	
 
