@@ -29,6 +29,9 @@ C:\repo\java_study\src\java_study>echo %classpath%\
 C:\repo\java_study\src\java_study>java java_study/MyFirstJavaProgram
 Hello World
 
+And on windows it is possible to set classpath like this:
+set CLASSPATH=C:\users\jack\java\classes
+
 And I have successfully also executed the program for calculation of sungeometry in
 the raster, hurrah:
 C:\repo\java_study\src\sungeom_java>javac -d . sungeom.java
