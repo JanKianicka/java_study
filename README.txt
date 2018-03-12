@@ -29,6 +29,10 @@ C:\repo\java_study\src\java_study>echo %classpath%\
 C:\repo\java_study\src\java_study>java java_study/MyFirstJavaProgram
 Hello World
 
+and it is possible to use also dot:
+C:\repo\java_study\src\java_study>java java_study.MyFirstJavaProgram
+Hello World
+
 And on windows it is possible to set classpath like this:
 set CLASSPATH=C:\users\jack\java\classes
 
