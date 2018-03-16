@@ -86,6 +86,17 @@ Ended here:
 https://www.tutorialspoint.com/java/java_files_io.htm
 we need to experiment yet with File, FileReader, FileWriter classes.
 
+Java Data Structures:
+- Enumeration
+- BitSet
+- Vector
+- Stack
+- Dictionary
+- Hashtable
+- Properties
+All these classes are now legacy and Java-2 has introduced a new framework called Collections Framework, which is discussed in the next chapter.
+
+
 
 
 
