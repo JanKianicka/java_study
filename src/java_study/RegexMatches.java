@@ -30,6 +30,16 @@ public class RegexMatches {
          System.out.println("NO MATCH");
       }
       
+      // Test for matching names of Channels
+      String chanName = "Test_TimeTreeLogImprTerminal";
+      String patternChan = "Test_*";
+      
+      Pattern rCh = Pattern.compile(patternChan);
+      Matcher mCh = rCh.matcher(chanName);
+      if (mCh.find()) {
+    	  System.out.println("Found channel: " + mCh.group(0));
+      }
+      
       RegexCouter.CountCats();
       testMetarTAFStrings();
       testRoadCastMetro();

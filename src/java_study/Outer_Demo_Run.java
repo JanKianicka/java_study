@@ -1,5 +1,7 @@
 package java_study;
 
+import java_study.Outer_Demo.Inner_Demo;
+
 abstract class AnonymousInner {
 	public abstract void mymethod();
 }
@@ -12,10 +14,13 @@ interface Message {
 class Outer_Demo {
    int num;
    // private variable of the outer class
-   private int num2 = 175;  
+   private int num2 = 175;
+   public Inner_Demo nestedObj = new Inner_Demo();
    
    // inner class
    public class Inner_Demo {
+	  public int innerAttribute = 0;
+	  
       public void print() {
          System.out.println("This is an inner class");
       }
@@ -94,7 +99,13 @@ public class Outer_Demo_Run {
 		});
 		
 		Outer_Demo.Nested_Demo nested = new Outer_Demo.Nested_Demo();	 
-	    nested.my_method();		
+	    nested.my_method();	
+	    
+	    // Test of reseting inner attributes
+	    Inner_Demo inAtrInst = outer.nestedObj;
+	    System.out.println("Value of inAtrInst.innerAttribute: " + inAtrInst.innerAttribute);
+	    inAtrInst.innerAttribute = 17;
+	    System.out.println("Value of outer.nestedObj.innerAttribute: " + outer.nestedObj.innerAttribute);
 
 	}
 }
