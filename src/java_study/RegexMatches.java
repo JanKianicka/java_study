@@ -43,6 +43,7 @@ public class RegexMatches {
       RegexCouter.CountCats();
       testMetarTAFStrings();
       testRoadCastMetro();
+      testNonCapturingGroups();
    }
    
    public static void testMetarTAFStrings() {
@@ -123,6 +124,77 @@ public class RegexMatches {
 	   
 	   String roadcastRetFull = mRoadCast.replaceAll(String.format("%s",ft.format(now)));
 	   System.out.print(roadcastRetFull.substring(0, 1000));
+   }
+   
+   public static void testNonCapturingGroups() {
+	   String SPSQ_example = "SPSQ LZTT 041024\r\n" + 
+	   		"SPECI LZTT 041024Z 05002KT CAVOK M08/M14 Q1005=";
+	   String SASQ_example = "SASQ LZTT 041530\r\n" + 
+	   		"METAR LZTT 041530Z VRB02KT CAVOK M03/M12 Q1004 NOSIG=";
+	   
+	   String SNOWTAM_example = "SWLZ0304 LZTT 03040607\r\n" + 
+	   		"(SNOWTAM 0304\r\n" + 
+	   		"A) LZTT\r\n" + 
+	   		"B) 03040607\r\n" + 
+	   		"C) 09 F)NIL/NIL/NIL G)XX/XX/XX H)5/5/5\r\n" + 
+	   		"N) NIL\r\n" + 
+	   		"R) NIL\r\n" + 
+	   		"T) DANGEROUS CONDITION CEASED)";
+	   
+	   System.out.println("");
+	   System.out.format("SPSQ_example: %s", SPSQ_example);
+	   System.out.println("");
+	   System.out.format("SASQ_example: %s", SASQ_example);
+	   System.out.println("");
+	   System.out.format("SNOWTAM_example: %s", SNOWTAM_example);
+	   
+	   String monthPattern = "(0[1-9]|1[012])";
+	   String dayPattern = "(0[1-9]|[12][0-9]|3[01])";
+	   String hourPattern = "(0[0-9]|1[0-9]|2[0-9])";
+	   String minuteSecondPattern = "(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0])";
+	   
+	   String SPSQ_pattern1 = String.format("(?<=^SPSQ LZTT )(%s%s%s)",dayPattern, hourPattern, minuteSecondPattern); //(^SPSQ LZTT )
+	   System.out.println(SPSQ_pattern1);
+	   Pattern SPSQ_pattern1Comp = Pattern.compile(SPSQ_pattern1);
+	   Matcher SPSQ_pattern1Matcher = SPSQ_pattern1Comp.matcher(SPSQ_example);
+	   
+	   String SPSQ_pattern2 = String.format("(?<=LZTT )(%s%s%sZ)", dayPattern, hourPattern, minuteSecondPattern);
+	   System.out.println(SPSQ_pattern2);
+	   Pattern SPSQ_pattern2Comp = Pattern.compile(SPSQ_pattern2);
+	   
+	   String SNOWTAM_pattern1 = String.format("(?<=^SWLZ)(%s%s)", monthPattern, dayPattern);
+	   String SNOWTAM_pattern2 = String.format("(?<=^SWLZ%s%s LZTT )(%s%s%s%s)", monthPattern, dayPattern, monthPattern, dayPattern,
+			   hourPattern, minuteSecondPattern);
+	   
+	// we replace with simple date formated datetime
+	   Date now = new Date();
+	   SimpleDateFormat ft = 
+	    	      new SimpleDateFormat ("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+	   SimpleDateFormat ft2 = 
+	    	      new SimpleDateFormat ("MMdd");
+	   
+	   String SPSQ_patternRet = SPSQ_pattern1Matcher.replaceAll(String.format("%s",ft.format(now)));
+	   Matcher SPSQ_pattern2Matcher = SPSQ_pattern2Comp.matcher(SPSQ_patternRet);
+	   SPSQ_patternRet = SPSQ_pattern2Matcher.replaceAll(String.format("%s",ft.format(now)));
+	   
+	   System.out.println("");
+	   System.out.println(SPSQ_patternRet);
+	   
+	   System.out.println(SNOWTAM_pattern1);
+	   System.out.println(SNOWTAM_pattern2);
+	   Pattern SNOWTAM_pattern1Comp = Pattern.compile(SNOWTAM_pattern1);
+	   Matcher SNOWTAM_pattern1Matcher = SNOWTAM_pattern1Comp.matcher(SNOWTAM_example);
+	   String SNOWTAM_example_ret = SNOWTAM_pattern1Matcher.replaceAll(String.format("%s",ft2.format(now)));
+	   
+	   Pattern SNOWTAM_pattern2Comp = Pattern.compile(SNOWTAM_pattern2);
+	   Matcher SNOWTAM_pattern2Matcher = SNOWTAM_pattern2Comp.matcher(SNOWTAM_example_ret);
+	   SNOWTAM_example_ret = SNOWTAM_pattern2Matcher.replaceAll(String.format("%s",ft.format(now)));
+	   
+	   System.out.println("");
+	   System.out.println(SNOWTAM_example_ret);
+	   //System.out.println(SPSQ_pattern1Matcher.group());
+	   // We continue on Monday / I want to study in the afternoon
+	   
    }
    
 }
