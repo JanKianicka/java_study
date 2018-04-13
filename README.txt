@@ -96,11 +96,16 @@ Java Data Structures:
 - Properties
 All these classes are now legacy and Java-2 has introduced a new framework called Collections Framework, which is discussed in the next chapter.
 
+Collections types:
+java.util.LinkedList - AbstractSequentialList and implements the List interface
+java.util.ArrayList - The ArrayList class extends AbstractList and implements the List interface. 
+                      ArrayList supports dynamic arrays that can grow as needed.
+java.util.HashSet - HashSet extends AbstractSet and implements the Set interface. 
+                    It creates a collection that uses a hash table for storage.
+java.util.LinkedHashSet - LinkedHashSet maintains a linked list of the entries in the set, in the order in which they were inserted. 
+                          This allows insertion-order iteration over the set.
+                          That is, when cycling through a LinkedHashSet using an iterator, 
+                          the elements will be returned in the order in which they were inserted.
 
-
-
-
- 
- 
-
-
+                          
+                          
