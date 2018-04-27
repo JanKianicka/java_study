@@ -22,7 +22,7 @@ public class StringTest {
 	                       "is %s", 0.025, 7, "StringVar");
 	    System.out.println(fs);
 
-	    String Str = new String("Welcome to Tutorialspoint.com");
+	    String Str = new String("Verification string.");
 	    System.out.println("Hashcode for Str :" + Str.hashCode() );
 	    
 	    // md5 hash code 
@@ -56,7 +56,17 @@ public class StringTest {
 		/* This is very strange, this md5 hash is always the same even though I change the input string. */
 		/* There must be something puzzling here. */
 	    byte[] thedigest = md.digest(Str.getBytes());
+	    // These two only renders pointers to the array, which do not change
+	    System.out.println(Str.getBytes());
 	    System.out.println(thedigest.toString());
+	    
+	    // real evaluating of the has code, these can be used for comparision 
+	    // 
+	    StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < thedigest.length; ++i) {
+          sb.append(Integer.toHexString((thedigest[i] & 0xFF) | 0x100).substring(1,3));
+        }
+        System.out.println(sb.toString());
 	    
 		StringBufferTest.run();
 	}
