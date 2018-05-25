@@ -107,5 +107,19 @@ java.util.LinkedHashSet - LinkedHashSet maintains a linked list of the entries i
                           That is, when cycling through a LinkedHashSet using an iterator, 
                           the elements will be returned in the order in which they were inserted.
 
-                          
-                          
+Network protocol types:
+- TCP/IP - Transmission Control Protocol/Internet Protocol
+- UDP - User Datagram Protocol
+
+Procedure:
+1. Server instantiates a ServerSocket object, denoting which port number communication is to occur on.
+2. The server invokes the accept() method of the ServerSocket class.
+3. After the server is waiting, a client instantiates a Socket object, specifying the server name and the port number to connect to.
+4. The constructor of the Socket class attempts to connect the client to the specified server and the port number.
+5. On the server side, the accept() method returns a reference to a new socket.
+
+java.net.ServerSocket class is used by server applications to obtain a port and listen for client requests.
+java.net.Socket class represents the socket that both the client and the server use to communicate with each other.
+
+
+
