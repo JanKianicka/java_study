@@ -1,0 +1,4 @@
+# Here are the notes from the Spring Java tutorial.
+Important abrevations:
+JTA - Java Transaction API (https://en.wikipedia.org/wiki/Java_Transaction_API)
+MDV - Model-View-Controler (MDV) (https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
