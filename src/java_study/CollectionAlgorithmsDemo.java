@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 class IteratorDemo {
 	
@@ -82,6 +84,7 @@ public class CollectionAlgorithmsDemo {
 
 		// Get iterator
 		Iterator li = ll.iterator();
+		
 		System.out.print("List sorted in reverse: ");
 
 		while (li.hasNext()) {
@@ -103,5 +106,18 @@ public class CollectionAlgorithmsDemo {
 		System.out.println("Maximum: " + Collections.max(ll));
 		
 		IteratorDemo.run(new String[0]);
+		
+		SortedSet<Long> lonTest = new TreeSet<Long>();
+		lonTest.add(10L);
+		lonTest.add(20L);
+		lonTest.add(15L);
+		SortedSet<Long> lonTest2 = new TreeSet<Long>();
+		for(Long i:lonTest) {
+			lonTest2.add(i);
+		}
+
+		System.out.println(lonTest.toString());
+		System.out.println(lonTest2.toString());
+		
 	}
 }
