@@ -122,4 +122,23 @@ java.net.ServerSocket class is used by server applications to obtain a port and 
 java.net.Socket class represents the socket that both the client and the server use to communicate with each other.
 
 
+Procedure of porting the java_study project to different Eclipse and workspace:
+Two issues have been encountered:
+1. That java package was not resolved as package, but as a mere folder, and 'default package' was created.
+This had to be resolved by proper set up in:
+ '-> project properties -> Java Build Path -> Source
+ Keep there only two paths:
+ java_study/spring_hello/src
+ java_study/src
+ with no exclusion, whereas these directories are translated into CLASSPATH
+
+2. Second issue was conflict in JNI, java versions and this is resolved by:
+- on the level of workspace mast match the default JRE and Java compliance level
+  '-> Java - Compiler - complience level set to 1.8
+  '-> JRE
+- second option is on the level of the project preferences
+  '-> Java Build path - Libraries - proper set-up of the execution environment
+
+
+ 
 
