@@ -31,6 +31,11 @@ public class CollectionsDemo {
       changeTestClass(t);
       System.out.println("\n\n"+ t.listOfInt);
       
+      System.out.println("Test of static method.");
+      ArrayList<Integer> inArray = new ArrayList<Integer>();
+      ChangeCollectionTest(inArray);
+      System.out.println(inArray);
+      
    }
    
    private class Test_class{
@@ -38,10 +43,16 @@ public class CollectionsDemo {
 	   public List<Integer> listOfInt = new ArrayList<Integer>();
 	   
 	   public void Test_class() {}
+	   
    }
    
    private static void changeTestClass(Test_class t) {
 	   t.listOfInt.add(6);
 	   
    }
+   
+   public static void ChangeCollectionTest(ArrayList<Integer> inArray) {
+	   
+	   inArray.add(1);
+   }   
 }
