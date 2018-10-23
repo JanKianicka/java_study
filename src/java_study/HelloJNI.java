@@ -38,6 +38,11 @@ How have I build and ran it on my local machine:
     > $ java -Djava.library.path=java_study java_study.HelloJNI
     Hello World!
     
+    Setting the library path for Eclipse is in:
+    Specifically: select Project, right click -> Properties / Java Build Path / Libraries tab, 
+    select a .jar, expand it, 
+    select Native library location, click Edit, folder chooser dialog will appear).
+    
 */
 
 public class HelloJNI {
