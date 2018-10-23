@@ -16,6 +16,28 @@ The arguments are:
     JNIEnv*: reference to JNI environment, which lets you access all the JNI functions.
     jobject: reference to "this" Java object.
 
+How have I build and ran it on my local machine:
+    > cd /cygdrive/c/repo/java_study/src
+    > javah -d java_study java_study.HelloJNI
+    output HelloJNI.class, java_study_HelloJNI.h
+    > cd /cygdrive/c/repo/java_study/src/java_study
+    > x86_64-w64-mingw32-gcc -Wl,--add-stdcall-alias -I/cygdrive/c/java8/include -I/cygdrive/c/java8/include/win32 -I/cygdrive/c/repo/java_study/src/java_study/ -shared -o hello.dll HelloJNI.c
+    output is hello.dll and we can execute the java call.
+    
+    Description:
+    -Wl: The -Wl to pass linker option --add-stdcall-alias to prevent UnsatisfiedLinkError (symbols with a stdcall suffix 
+    (@nn) will be exported as-is and also with the suffix stripped). (Some people suggested to use -Wl,--kill-at.)
+    
+    -D __int64="long long": define the type (add this option in front if error "unknown type name '__int64'")    
+    
+    Watch out, this stupis windows JNI has named the function:
+    'Java_java_1study_HelloJNI_sayHello', and this name has to be put to the .c file.
+    
+    Executed like this:
+    > cd /cygdrive/c/repo/java_study/src
+    > $ java -Djava.library.path=java_study java_study.HelloJNI
+    Hello World!
+    
 */
 
 public class HelloJNI {
