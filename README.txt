@@ -140,5 +140,7 @@ This had to be resolved by proper set up in:
   '-> Java Build path - Libraries - proper set-up of the execution environment
 
 
+ Hurah, hurah, afer this learning on my own mistakes, I could 
+ complile my study project in the end.
  
 
