@@ -1,6 +1,10 @@
 package java_study;
 
-/*The static initializer invokes System.loadLibrary() to load the native library "hello" 
+/*
+ * http://www.ntu.edu.sg/home/ehchua/programming/java/javanativeinterface.html
+ *
+ * 
+The static initializer invokes System.loadLibrary() to load the native library "hello" 
 (which contains a native method called sayHello()) during the class loading. 
 It will be mapped to "hello.dll" in Windows; or "libhello.so" in Unixes/Mac OS X. 
 This library shall be included in Java's library path (kept in Java system variable java.library.path). 
