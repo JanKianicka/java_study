@@ -1,0 +1,22 @@
+# We commence the study for duty at CTBTO.
+# 1.2.2019
+
+1. Learn Jenkins, C-check integration, TAP - protocol
+
+Procedure on my local centos - documented in: Jenkins_commands.txt
+- I have learned basics about making Jenkins available from outside over network,
+using http 80 protocol and port so far.
+
+2. Learn bash, csh and perl, python scripting
+
+3. Learn again about SHI software it self / ibase and all modules
+get them from github, try to build them
+
+4. Study about methods and domain of SHI and radionuclide software from the
+documentation
+
+5. Study background - waveform analyses, signal processing and seismology
+Look up some good book for my self
+
+6. Learn english - rading books and english grammar.
+

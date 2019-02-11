@@ -1,0 +1,111 @@
+# In course of CTBTO preparation study, steps for installation of Jenkins:
+
+1. Root installations:
+  wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  rpm -ivh epel-release-latest-7.noarch.rpm
+  yum repolist
+  yum check-update
+  yum update
+  yum info mailx
+
+  wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+  rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+  yum install jenkins
+  vim /etc/sysconfig/jenkins
+  systemctl start jenkins.service
+
+  # Interesting files of Jenkins
+  /var/lib/jenkins/secrets/initialAdminPassword
+  /var/lib/jenkins/jobs/My_first_job/config.xml
+  /var/lib/jenkins/workspace/
+
+  # Network configuration on VM
+  /etc/hosts - purpose of this file is to resolve hostnames that cannot be resolved any other way
+  /etc/resolv.conf - This file specifies the IP addresses of DNS servers and the search domain.
+  /etc/sysconfig/network - Specifies routing and host information for all network interfaces
+  /etc/sysconfig/network-scripts/ -  For each network interface, there is a corresponding interface configuration script.
+  > 
+
+  # Network command Windows CMD
+  telnet 192.168.160.104 22 (IP address)
+  
+  
+  # Accessible from outside
+  This was hard - describe latter - I have lost/spent so much time,
+  whole this dready day on this.  Finally it was in proxi,
+  forwarding. And I still do not know whether it is done correctly.
+  We may try then to make the communication via SSH, but I would
+  prefer to focus on different study fields.  May be just to take off
+  a short while again.  But on monday we shall document this all
+  troubles here including the set up steps.
+
+  Outdate of Oracle Virutal Box has caused mallfunction of the VM after reboot.
+  I had to:
+  - upgrade Oracle Virtual Box
+  - upgrade CentOS 7 inside the machine
+  - install extensions
+  - add memory to the graphical card (otherwise the Gnome GUI got stuck)
+  - changed the network adapter to Bridged only
+  
+  Then:
+  - reverted locally created httpd config file
+  mv /etc/httpd/conf.d/localhost.localdomain.conf /home/kianicka/ -v
+  Started httpd - appache tomcat web server
+  systemctl start httpd.service
+  In this case the wellcome web page was already available on port 80:
+  http://192.168.161.39:80
+  even from outside the machine.
+
+  Then I have prepared the following reverse proxy for localhost
+  and http port:
+  /etc/httpd/conf.d/localhost.localdomain.conf
+  ---
+  <VirtualHost *:80>
+    ServerName localhost.localdomain
+    ServerAdmin jan.kianicka@microstep-mis.com
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:8080/ nocanon
+    ProxyPassReverse / http://localhost:8080/
+    ProxyPassReverse / http://localhost.localdomain/
+    ProxyRequests Off
+    AllowEncodedSlashes NoDecode
+    SSLEngine Off 
+  </VirtualHost>
+  ---
+  This is forwarding http packets from port 80 to port 8080.
+  In this case we have Jenkins main page available on localhost:
+  http://localhost
+  and from outside
+  http://<IP>:80
+
+  TODO - next steps here shall be:
+  turn on SSL and https together with pertaining study
+  Attache second node.
+  
+  
+2. Jenkins it self configurations
+  My Github credential were provided.
+  Clone was successfull.
+  First admin account initialized:
+   ---
+   # First admin role
+   login: JenkinsAdmin
+   pass: MyFirstConfig1
+   email: jan.kianicka@microstep-mis.com
+   ---
+  Next step - made jenkins to be accessible from outside world.
+  Done.
+  
+  Internal URL: http://localhost:8080/login?from=%2F
+  
+  Next step will be crating Java Maven job with sample unit tests
+  There is sample project: git@github.com:JanKianicka/java_study.git
+  java_study/maven_test/
+  
+  and with SSH retrieval of the GitHub repository.
+  Storing of my SSH key.
+
+  Then creating of the remote java worker.
+  Then creating of the C worker with integrated C project using C-check.
+
+
