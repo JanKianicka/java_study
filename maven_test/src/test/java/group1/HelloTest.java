@@ -23,7 +23,7 @@ public class HelloTest {
 	public void test() {
 		int ret;
 		ret = HelloClass.addTwoNumbers(10, 15);
-		Assert.assertEquals(26, ret);
+		Assert.assertEquals(25, ret);
 	}
 
 }
