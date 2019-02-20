@@ -78,6 +78,14 @@
   and from outside
   http://<IP>:80
 
+  Preparation of local nod for maven and java project:
+  yum install java-1.8.0-openjdk-devel.x86_64
+  ls -l /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64
+
+  Maven installed with devault configuration here:
+  /opt/apache-maven-3.5.3
+  
+
   TODO - next steps here shall be:
   turn on SSL and https together with pertaining study
   Attache second node.
@@ -101,7 +109,24 @@
   Next step will be crating Java Maven job with sample unit tests
   There is sample project: git@github.com:JanKianicka/java_study.git
   java_study/maven_test/
-  
+
+  Preparation of Jenkins for maven projects.
+  1. Installed Maven Integration plugin
+  2. In Global Tool Configuration configured Maven
+     Default settings provider: /opt/apache-maven-3.5.3/conf/settings.xml
+     Default global settings provider: /opt/apache-maven-3.5.3/conf/settings.xml
+  3. In Global Tool Configuration configured JDK installation
+     Name: JDK1.8
+     JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64/
+  4. Created new Maven project - My_first_jenkins_job
+     as GitHub project
+     Root POM: maven_test/pom.xml
+     Goals and options: clean install
+     others were default.
+  After this it was possible to use local nod for compilation and
+  running unit tests for my first maven project.
+
+  TODO: 
   and with SSH retrieval of the GitHub repository.
   Storing of my SSH key.
 
