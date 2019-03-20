@@ -12,6 +12,9 @@ using http 80 protocol and port so far.
 3. Learn again about SHI software it self / ibase and all modules
 get them from github, try to build them
 
+3.1 Learn about status of CATS, try to set up it locally.
+Have a look on project on progress by means of reading gmail emails from GitHub.
+
 4. Study about methods and domain of SHI and radionuclide software from the
 documentation
 
@@ -19,4 +22,12 @@ documentation
 Look up some good book for my self
 
 6. Learn english - rading books and english grammar.
+Grammar and now vocabulary by means of reading books and speaking to my self.
 
+
+# details to various items
+
+
+# 4.
+Interesting terms easily explatined - seismology
+  http://www.geometrics.com/applications/frequency-asked-questions/seismic-general/

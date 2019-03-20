@@ -90,7 +90,28 @@
   turn on SSL and https together with pertaining study
   Attache second node.
   
+1.1 Import of the exported OVA file of the machine with my Jenkins.
+  Importing of OVA to Hyper V:
+  http://blog.worldofjani.com/?p=991
+  - installing Oracle VirtualBox
+  - conversion:
+   D:\VMs>"c:\Program Files\Oracle\VirtualBox\VBoxManage.exe" clonemedium --format vhd Dev_CentOS-disk002.vmdk Dev_CentOS-disk002.vhd
+   0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+   Clone medium created in format 'vhd'. UUID: 6d7d4a02-7107-447b-a427-ab139b8bcadb
+   
+  http://reflect.macrium.com/help/v5/how_to/imgtovhd/using_a_vhd_with_microsoft_hyper-v_or_virtual_pc.htm
+  http://www.fixedbyvonnie.com/2014/11/virtualbox-showing-32-bit-guest-versions-64-bit-host-os
+
+  https://smudj.wordpress.com/2015/05/14/windows-10-hyper-v-setting-up-networking-shared-and-bridged-options/
   
+  Unfortunatelly, the machine worked correctly only in rescue mode.
+  After cloning the partition there were missing /dev/centos partitions.
+  The reparations would be intensive and tricky - decribed e.g. here:
+  https://www.centos.org/forums/viewtopic.php?t=52140
+
+  We are switiching to Oracle VirtualBox and had to disable Hyper V.
+  They can not both run with full features on the same hosting windows OS.
+
 2. Jenkins it self configurations
   My Github credential were provided.
   Clone was successfull.
@@ -126,11 +147,16 @@
   After this it was possible to use local nod for compilation and
   running unit tests for my first maven project.
 
+  New Hyper V instance - http://192.168.0.24/job/My_first_jenkins_job/
+
   TODO: 
   and with SSH retrieval of the GitHub repository.
   Storing of my SSH key.
 
   Then creating of the remote java worker.
   Then creating of the C worker with integrated C project using C-check.
+
+
+
 
 
