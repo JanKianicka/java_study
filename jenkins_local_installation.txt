@@ -132,13 +132,61 @@
   ---
   > openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )
   > openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile v3.ext
+  We need yet server certifacte in PKCS#12 format, this can be created by this command:
+  > openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12
+  Export Password:MyJenkinsKey
+  
   and we have the certificate files ready. Good article is this one:
   https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
-  TODO - continuing with configuration of Jenkins and its server setup.
+
+  Deployment of the certificates to the localhost system - root CA certificate for secure authentification.
+  > mkdir /etc/httpd/ssl/
+  > cp /home/kianicka/ssl_certificate/server.key /etc/httpd/ssl
+  > cp /home/kianicka/ssl_certificate/server.crt /etc/httpd/ssl
+  > setsebool -P httpd_can_network_connect on
+  check this particular boolean of SELinux module
+  > getsebool -a |grep httpd_can_network_connect
+    httpd_can_network_connect --> on
+  Firewall setup
+  > firewall-cmd --permanent --add-service http
+  > firewall-cmd --permanent --add-service https
+  > systemctl restart firewalld
+
+  Just side Oraclve VM issue - too slow after import, too litle video memory.
+  Modfied by this command in Windows cmd:
+  > cd "C:\Program Files\Oracle\Virtualbox"
+  > vboxmanage modifyvm Dev_CentOS --vram 256
   
-  TODO - next steps here shall be:
-  turn on SSL and https together with pertaining study
-  Attache second node.
+  Configure new httpd service configuration file
+  ---
+  <VirtualHost *:80>
+   RewriteEngine On
+   RewriteRule ^.*$ https://%{SERVER_NAME}:443%{REQUEST_URI}
+  </VirtualHost>
+ 
+  <VirtualHost *:443>
+   ServerName localhost.localdomain 
+   ServerAdmin jan.kianicka@microstep-mis.com
+   ProxyPreserveHost On
+   ProxyPass / http://localhost:8080/ nocanon
+   ProxyPassReverse / http://localhost:8080/
+   ProxyPassReverse / https://localhost.localdomain/
+   ProxyRequests Off
+   AllowEncodedSlashes NoDecode
+   SSLEngine On
+   SSLCertificateFile /etc/httpd/ssl/server.crt
+   SSLCertificateKeyFile /etc/httpd/ssl/server.key
+   TransferLog /var/log/httpd/jenkins.access.log
+   ErrorLog /var/log/httpd/jenkins.error.log
+   RequestHeader set X-Forwarded-Proto "https"
+   RequestHeader set X-Forwarded-Port "443"
+  </VirtualHost>
+  ---
+  After restart of httpd and importing of custom certificate to firefox,
+  we are running SSL secured jenkins.
+  
+  TODO - next steps in background of Jenkins configuration shall be:
+  - attache second node with test for C-check module.
   
 1.1 Import of the exported OVA file of the machine with my Jenkins.
   Importing of OVA to Hyper V:
@@ -197,8 +245,13 @@
   After this it was possible to use local nod for compilation and
   running unit tests for my first maven project.
 
-  New Hyper V instance - http://192.168.0.24/job/My_first_jenkins_job/
+  New Hyper V instance - http://192.168.0.25/job/My_first_jenkins_job/
+  New Oracle VM Jenkins server with SSL: https://192.168.0.25/
+  - certificate generated for localhost was imported as custom certificate
+  Thus there is warning in firefox for imported server.p12.
+  However, it is for development purpose only.
 
+  
   TODO: 
   and with SSH retrieval of the GitHub repository.
   Storing of my SSH key.
