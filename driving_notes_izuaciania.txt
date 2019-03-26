@@ -6,6 +6,8 @@
 Procedure on my local centos - documented in: Jenkins_commands.txt
 - I have learned basics about making Jenkins available from outside over network,
 using http 80 protocol and port so far.
+- Configured first maven project for GitHub repo java_study.
+- Configured HTTPS with localhost SSL certificates.
 
 2. Learn bash, csh and perl, python scripting
 
@@ -18,8 +20,13 @@ Have a look on project on progress by means of reading gmail emails from GitHub.
 4. Study about methods and domain of SHI and radionuclide software from the
 documentation
 
+- study of SHI document "IDC Processing of Seismic, Hydroacoustinc,
+  and Infrasonic Data"
+
 5. Study background - waveform analyses, signal processing and seismology
-Look up some good book for my self
+Look up some good book for my self.
+
+
 
 6. Learn english - rading books and english grammar.
 Grammar and now vocabulary by means of reading books and speaking to my self.
