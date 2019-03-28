@@ -186,7 +186,7 @@
   we are running SSL secured jenkins.
   
   TODO - next steps in background of Jenkins configuration shall be:
-  - attache second node with test for C-check module.
+  - attach second node with test for C-check module.
   
 1.1 Import of the exported OVA file of the machine with my Jenkins.
   Importing of OVA to Hyper V:
@@ -210,6 +210,51 @@
   We are switiching to Oracle VirtualBox and had to disable Hyper V.
   They can not both run with full features on the same hosting windows OS.
 
+1.2 Attaching second node - prepared as CATS slave together with IDC baseline.
+  We will attach the node and prepare all keys and certificates.
+  Root commands (there are still troubles with VBox additons and kernel headers version)
+  > yum install git
+  > yum install autoreconf
+  > yum install autoconf
+  > yum install automake
+  > yum install libtool
+  > yum install check
+  > yum install check-devel
+  then local clone of cbase, idcmodel, and cats using my Mstep key.
+  Successfull built.
+  Using bridged network adapter we can see Jenkins and slave machine
+  and connect via ssh.
+
+  # we come to setting up the agent node -  worker
+  There must be set up technical system user 'jenkins' both machines.
+  And established public RSA key ssh communication.
+  However, I did not succeed to establish this communication on my Virtual Box machines.
+  - public keys were added to .ssh/authorized_keys
+  - public key authentification was enabled in sshd server on both machines:
+  > vim /etc/ssh/sshd_config
+  ---
+  RSAAuthentication yes
+  PubkeyAuthentication yes
+  AuthorizedKeysFile      .ssh/authorized_keys
+  ---
+  > systemctl restart sshd
+  However, I did not succeed with establishing this connection without
+  password.
+  Finally, in slave machine we created 'jenkins' user with
+  login/password authentification.  Such user could be configured in
+  Jenkins server and we have running Jenkins node.
+
+  On master Jenkins server it is not possible to log in as 'jenkins' user -
+  this system user has this option for security reasons disabled.
+  In order to work under jenkins execute this command:
+  > su -s /bin/bash jenkins
+
+  Followed this good article:
+  https://linuxacademy.com/blog/devops/adding-a-jenkins-agent-node/
+
+  Created OVA files of turned off machines, we terminate the work on this for this week.
+  
+  
 2. Jenkins it self configurations
   My Github credential were provided.
   Clone was successfull.
@@ -251,11 +296,20 @@
   Thus there is warning in firefox for imported server.p12.
   However, it is for development purpose only.
 
+  CTBTOSA group does not allow HTTP cloning.
+  Therefore I have created my login/key ssh Jenkins user and used that one for
+  authentification for particular 'cbase' free project.
+  (My mstep private key was added to Jenkins - user JanKianicka).
+
+  cbase_1 - free stype project configured and installed XUnit plugin,
+  tested archivation of artifacts and try yet this C-check results
+  colleciton into a single test result.
+  Successfully called as post-build action for cbase_1 project.
+  Currently configured jobs backed up on the master:
+  > tar -cvf jenkins_jobs/backup_28.3.2019/jobs.tar /var/lib/jenkins/jobs/
+  
   
   TODO: 
-  and with SSH retrieval of the GitHub repository.
-  Storing of my SSH key.
-
   Then creating of the remote java worker.
   Then creating of the C worker with integrated C project using C-check.
 
