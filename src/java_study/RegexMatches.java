@@ -44,6 +44,7 @@ public class RegexMatches {
       testMetarTAFStrings();
       testRoadCastMetro();
       testNonCapturingGroups();
+      TestNetCDF_IvansPattern.compileTestRegexp();
    }
    
    public static void testMetarTAFStrings() {
@@ -219,6 +220,31 @@ class RegexCouter{
 			System.out.println("start(): " + m.start());
 			System.out.println("end(): " + m.end());
 		}
+	}
+}
+
+class TestNetCDF_IvansPattern{
+	// Original pattern - not possible to compile with python 're' module - incompatible
+	//private static final String REGEX = ".*[/\\\\](?<prodName>abha)[/\\\\](?<timestamp>\\d{8}[/\\\\]\\d{6})\\.nc.gz$";
+	
+	private static final String REGEX = ".*/(?<prodName>abha)/(?<timestamp>\\d{8}/\\d{6})\\.nc.gz$";
+	// Linux version
+	private static final String INPUT = ".*927/netCDF/Abha/20180313/120000.nc.gz";
+	// Windows version
+	//private static final String INPUT = "\\927\\netCDF\\Abha\\20180313\\120000.nc.gz";
+	
+	public static void compileTestRegexp() {
+		Pattern p = Pattern.compile(REGEX);
+		Matcher m = p.matcher(INPUT.toLowerCase());
+		
+		if (m.find( )) {
+	         System.out.println("Found value: " + m.group(0) );
+	         System.out.println("Found value: " + m.group(1) );
+	         System.out.println("Found value: " + m.group(2) );
+	         System.out.println("Found timestamp: " + m.group("timestamp"));
+	      }else {
+	         System.out.println("NO MATCH");
+	      }
 	}
 }
 
