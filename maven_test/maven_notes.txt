@@ -1,0 +1,37 @@
+# Study notes about maven
+29.6.2021
+https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+
+Three build-in life cycles:
+1. Default - deployment
+2. Clean - cleaning
+3. Site - project's site documentation
+
+Default life cycle has the following phases:
+1. validate
+2. compile
+3. test
+4. package
+5. verify (executs these phases implicitelly: validate, compile, package and then verify)
+6. install
+7. deploy
+
+Each phases can be granulated by 'plugin goals'.
+A plugin goal represents a specific task (finer than a build phase).
+
+The phases named with hyphenated-words (pre-*, post-*, or process-*)
+are not usually directly called from the command line.
+
+Failsafe and code coverage plugins bind goals to integration-test and
+verify phases.
+
+Phases are 'plugin phases' and can be expressed also explicitelly - e.g.:
+1. compile    compiler:compile
+2. test       surefire:test
+3. package    jar:jar
+
+The second way to add goals to phases is to configure plugins in your
+project. Plugins are artifacts that provide goals to Maven.
+
+
+
