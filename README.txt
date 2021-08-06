@@ -143,4 +143,8 @@ This had to be resolved by proper set up in:
  Hurah, hurah, afer this learning on my own mistakes, I could 
  complile my study project in the end.
  
-
+# 6.8.2021 Mstep - Refreshement of Java basic knowledge - I commence to go again through all these lesssons.
+- today finished on https://www.tutorialspoint.com/java/java_nonaccess_modifiers.htm - transient and 
+  tried try-catch with resources.
+  
+  
