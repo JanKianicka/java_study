@@ -248,3 +248,86 @@ class TestNetCDF_IvansPattern{
 	}
 }
 
+
+/*
+ * Collection of information from https://www.tutorialspoint.com/java/java_regular_expressions.htm
+ * 
+ *  Regular Expression Syntax
+ *  Here is the table listing down all the regular expression metacharacter syntax available in Java −
+
+Subexpression 	Matches
+^ 	Matches the beginning of the line.
+$ 	Matches the end of the line.
+. 	Matches any single character except newline. Using m option allows it to match the newline as well.
+[...] 	Matches any single character in brackets.
+[^...] 	Matches any single character not in brackets.
+\A 	Beginning of the entire string.
+\z 	End of the entire string.
+\Z 	End of the entire string except allowable final line terminator.
+re* 	Matches 0 or more occurrences of the preceding expression.
+re+ 	Matches 1 or more of the previous thing.
+re? 	Matches 0 or 1 occurrence of the preceding expression.
+re{ n} 	Matches exactly n number of occurrences of the preceding expression.
+re{ n,} 	Matches n or more occurrences of the preceding expression.
+re{ n, m} 	Matches at least n and at most m occurrences of the preceding expression.
+a| b 	Matches either a or b.
+(re) 	Groups regular expressions and remembers the matched text.
+(?: re) 	Groups regular expressions without remembering the matched text.
+(?> re) 	Matches the independent pattern without backtracking.
+\w 	Matches the word characters.
+\W 	Matches the nonword characters.
+\s 	Matches the whitespace. Equivalent to [\t\n\r\f].
+\S 	Matches the nonwhitespace.
+\d 	Matches the digits. Equivalent to [0-9].
+\D 	Matches the nondigits.
+\A 	Matches the beginning of the string.
+\Z 	Matches the end of the string. If a newline exists, it matches just before newline.
+\z 	Matches the end of the string.
+\G 	Matches the point where the last match finished.
+\n 	Back-reference to capture group number "n".
+\b 	Matches the word boundaries when outside the brackets. Matches the backspace (0x08) when inside the brackets.
+\B 	Matches the nonword boundaries.
+\n, \t, etc. 	Matches newlines, carriage returns, tabs, etc.
+\Q 	Escape (quote) all characters up to \E.
+\E 	Ends quoting begun with \Q.
+ * 
+ * 
+ * Replacement Methods
+ * Replacement methods are useful methods for replacing text in an input string −
+Sr.No. 	Method & Description
+1 public Matcher appendReplacement(StringBuffer sb, String replacement)
+Implements a non-terminal append-and-replace step.
+
+2 public StringBuffer appendTail(StringBuffer sb)
+Implements a terminal append-and-replace step.
+
+3 public String replaceAll(String replacement)
+Replaces every subsequence of the input sequence that matches the pattern with the given replacement string.
+
+4 public String replaceFirst(String replacement)
+Replaces the first subsequence of the input sequence that matches the pattern with the given replacement string.
+
+5 public static String quoteReplacement(String s)
+Returns a literal replacement String for the specified String. This method produces a String that will work as a literal replacement s in the appendReplacement method of the Matcher class.
+ *
+ *
+ * PatternSyntaxException Class Methods
+ * A PatternSyntaxException is an unchecked exception that indicates a syntax error in a regular expression pattern. 
+ * The PatternSyntaxException class provides the following methods to help you determine what went wrong.
+ * 
+ * Sr.No. 	Method & Description
+1 public String getDescription()
+Retrieves the description of the error.
+
+2 public int getIndex()
+Retrieves the error index.
+
+3 public String getPattern()
+Retrieves the erroneous regular expression pattern.
+
+4 public String getMessage()
+Returns a multi-line string containing the description of the syntax error and its index, the erroneous regular expression pattern, 
+and a visual indication of the error index within the pattern.
+
+ *
+ * */
