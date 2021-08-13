@@ -65,6 +65,25 @@ switch 	synchronized 	this 	throw
 throws 	transient 	try 	void
 volatile 	while
 
+Operators:
+- Precedence of Java Operators
+Category 	Operator 	Associativity
+1. Postfix 	expression++ expression-- 	Left to right
+2. Unary 	++expression –-expression +expression –expression ~ ! 	Right to left
+3. Multiplicative 	* / % 	Left to right
+4. Additive 	+ - 	Left to right
+5. Shift 	<< >> >>> 	Left to right
+6. Relational 	< > <= >= instanceof 	Left to right
+7. Equality 	== != 	Left to right
+8. Bitwise AND 	& 	Left to right
+9. Bitwise XOR 	^ 	Left to right
+10. Bitwise OR 	| 	Left to right
+11. Logical AND 	&& 	Left to right
+12. Logical OR 	|| 	Left to right
+13. Conditional 	?: 	Right to left
+14. Assignment 	= += -= *= /= %= ^= |= <<= >>= >>>= 	Right to left
+
+
 
 Here I miss whole block of study which I conducted at home.
 We continue in:
