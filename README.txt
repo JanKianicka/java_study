@@ -165,5 +165,12 @@ This had to be resolved by proper set up in:
 # 6.8.2021 Mstep - Refreshement of Java basic knowledge - I commence to go again through all these lesssons.
 - today finished on https://www.tutorialspoint.com/java/java_nonaccess_modifiers.htm - transient and 
   tried try-catch with resources.
+- continued the lessons, today accomplished until File and IO streams
+  https://www.tutorialspoint.com/java/java_files_io.htm  
+# 20.8.2021 Mstep - reading and testing IO streams, trying yet Local socket Greeting server listening on the port 6066.
+  and let us study and try bit-wise operations on various 32, 64 bit platforms.
+  Try this exercise yet: 
+  https://medium.com/android-news/java-when-to-use-n-8-0xff-and-when-to-use-byte-n-8-2efd82ae7dd7
+# 10.9.2021 Mstep - in course of IMS4b we have a look on parametrized classes and templates again
   
-  
+
