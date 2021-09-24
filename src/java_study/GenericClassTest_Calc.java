@@ -1,5 +1,10 @@
 package java_study;
 
+/**
+ * 
+ * Abstract method declaring the method which we 
+ * will use in the parametrized and inherited classes 
+ */
 
 abstract class DotCalculus {
 	public abstract void evaluateDot();
@@ -28,7 +33,7 @@ class DotCalculus1D extends DotCalculus {
 		// Loop for calculate cot product
 		for (int i = 0; i < this.vect_A.length; i++)
 
-			product = product + this.vect_A[i] * this.vect_A[i];
+			product = product + this.vect_A[i] * this.vect_B[i];
 		this.dot = product;
 	}
 	
@@ -37,13 +42,12 @@ class DotCalculus1D extends DotCalculus {
 	}
 }
 
-
+/* Parametrized class */
 class BoxDot<T extends DotCalculus> {
 	private T t;
 
 	public BoxDot(T tIn) {
 		this.t = tIn;
-		//this.t.evaluateDot();
 	}
 	
 	public void addType(T t) {
@@ -56,6 +60,22 @@ class BoxDot<T extends DotCalculus> {
 	
 	public void evaluateDot() {
 		this.t.evaluateDot();
+	}
+}
+
+/* 
+ * Let us try to use one more type and encapsulate results into
+ * the the result object.
+ * */
+class Result<T> {
+	private T res;
+	
+	public Result(T tIn) {
+		this.res = tIn;
+	}
+	
+	public void printResult() {
+		System.out.println("Result is:" + this.res.toString());
 	}
 }
 
@@ -79,67 +99,40 @@ public class GenericClassTest_Calc {
 		int b[][]={{1,1,1},{2,2,2},{3,3,3}};
 		int vect_A[] = { 3, -5, 4 };
 		int vect_B[] = { 2, 6, 5 };
+		int vect_A1[] = { 3, -5, -4 };
+		int vect_B1[] = { 2, 6, -10 };
+		int vect_A2[] = { 0, -5, -4 };
+		int vect_B2[] = { 0, 6, -10 };		
 		int c[][]=new int[3][3];
 		int vect_C[] = new int[3];
 		
 		DotCalculus1D dotCalculus1D = new DotCalculus1D(vect_A, vect_B);
-		// Standard implementation without generic types
+		/* Standard implementation without generic types */
 		dotCalculus1D.evaluateDot();
 		
-		// GenericMethodRun.evaluateDot(dotCalculus1D);
-		// System.out.println("1D dot calculus:"+ dotCalculus1D.getDot());
+		/* Static method calling declared evaluateDot on the generic object */
+		DotCalculus1D dotCalculus1D1 = new DotCalculus1D(vect_A1, vect_B1);
+		GenericMethodRun.evaluateDot(dotCalculus1D1);
+		System.out.println("1D dot calculus using static method:"+ dotCalculus1D1.getDot());
 		
-		BoxDot<DotCalculus1D> oneDBox = new BoxDot<DotCalculus1D>(dotCalculus1D);
-		System.out.println("1D dot calculus:"+ dotCalculus1D.getDot());
+		/* Wrapped in the parametrized class */
+		DotCalculus1D dotCalculus1D2 = new DotCalculus1D(vect_A2, vect_B2);
+		BoxDot<DotCalculus1D> oneDBox = new BoxDot<DotCalculus1D>(dotCalculus1D2);
+		System.out.println("1D dot calculus from the BoxDot instance before evaluate:"+ dotCalculus1D2.getDot());
 		// This does not work - The method evaluateDot() is undefined for the type Box<DotCalculus1D>
 		oneDBox.evaluateDot();
-		System.out.println("1D dot calculus:"+ dotCalculus1D.getDot());
+		System.out.println("1D dot calculus from the BoxDot instance after evaluate:"+ dotCalculus1D2.getDot());
+
 		
-		//    https://stackoverflow.com/questions/7781150/how-to-apply-java-generics-to-calculator
-	
-		// https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/
-		// https://www.javatpoint.com/java-program-to-multiply-two-matrices
+/**
+ * Samples of various calculations of the dot product:
+ * https://stackoverflow.com/questions/7781150/how-to-apply-java-generics-to-calculator
+ * https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/		
+ * https://www.javatpoint.com/java-program-to-multiply-two-matrices
+ * 
+ */
 		
 	}
 }
 
-
-//private T dotArr;
-//// Suported types
-//private int[] type1;
-//private int[][] type2;
-//
-//public DotProdCalc() {
-//	
-//}
-//
-//public T dotProduct(T arr1, T arr2)  {
-//	Class<?> clazz = arr1.getClass();
-//	System.out.println(String.format("Type: %s", clazz));
-//	if (arr1.getClass().equals(int[].class)) {
-//		System.out.println("One dimensional array.");
-		// This is the error: The type of the expression must be an array type but it 
-		// resolved to T
-//		dotArr[0] = arr1[1] * arr2[2]
-//                - arr1[2] * arr2[1];
-//		dotArr[1] = arr1[2] * arr2[0]
-//                - arr1[0] * arr2[2];
-//		dotArr[2] = arr1[0] * arr2[1]
-//                - arr1[1] * arr2[0];
-	    // And now we have problem with casting again
-		// whole this is wrong
-//	} else if (arr1.getClass().equals(int[][].class)) {
-//		System.out.println("Two dimensional array.");
-//	} else {
-//		System.out.println("Not usupported format.");
-//	}
-//		
-//	
-//	return this.dotArr;
-//}
-//
-//public T getResult() {
-//	return dotArr;
-//}
-//}
 
