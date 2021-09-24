@@ -1,6 +1,11 @@
 package java_study;
 
-class TermTypeA {
+abstract class TermType extends Object {
+	public abstract void concatenateStrings(String inStr);
+}
+
+
+class TermTypeA extends TermType {
 	private String type;
 	
 	public TermTypeA(String typeIn) {
@@ -15,13 +20,17 @@ class TermTypeA {
 		this.type = typeIn;
 	}
 	
+	public void concatenateStrings(String inStr) {
+		System.out.println(String.format("Concatenate: %s%s", this.type, inStr));
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Type is: %s", this.type);
 	}
 }
 
-class TermTypeB {
+class TermTypeB extends TermType {
 	private String type;
 
 	public TermTypeB(String typeIn) {
@@ -36,6 +45,10 @@ class TermTypeB {
 	public void setType(String typeIn) {
 		this.type = typeIn;
 	}
+	
+	public void concatenateStrings(String inStr) {
+		System.out.println(String.format("Concatenate: %s%s", this.type, inStr));
+	}	
 	
 	@Override
 	public String toString() {
@@ -67,6 +80,13 @@ public class GenericMethodTest {
 			System.out.printf("%s ", element);
 		}
 		System.out.println();
+	}
+	
+	// execute contatenate method on generic type objects in the array
+	public static <E extends TermType> void concatenateArr(E[] inputArray, String appendix) {
+		for (E element : inputArray) {
+			element.concatenateStrings(appendix);
+		}
 	}
 	
 	@SuppressWarnings("unused")
@@ -164,5 +184,8 @@ public class GenericMethodTest {
 		boxArray[2] = stringBox;
 		processBoxes(boxArray);
 		
+		// Trying to extend generic type methods by concatenate method with certain string
+		concatenateArr(termTypeAArray, "APPENDIX");
+		concatenateArr(termTypeBArray, "APPENDIX2");
 	}
 }
