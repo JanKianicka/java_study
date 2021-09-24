@@ -8,6 +8,7 @@ package java_study;
 
 abstract class DotCalculus {
 	public abstract void evaluateDot();
+	public abstract int getDot();
 }
 
 
@@ -37,17 +38,20 @@ class DotCalculus1D extends DotCalculus {
 		this.dot = product;
 	}
 	
+	@Override
 	public int getDot() {
 		return this.dot;
 	}
 }
 
 /* Parametrized class */
-class BoxDot<T extends DotCalculus> {
+class BoxDot<T extends DotCalculus, R extends Result> {
 	private T t;
+	private R res;
 
-	public BoxDot(T tIn) {
+	public BoxDot(T tIn, R resIn) {
 		this.t = tIn;
+		this.res = resIn;
 	}
 	
 	public void addType(T t) {
@@ -60,6 +64,11 @@ class BoxDot<T extends DotCalculus> {
 	
 	public void evaluateDot() {
 		this.t.evaluateDot();
+		this.res.storeNewRes(this.t.getDot());
+	}
+	
+	public void printCurrentResult() {
+		this.res.printResult();
 	}
 }
 
@@ -71,6 +80,10 @@ class Result<T> {
 	private T res;
 	
 	public Result(T tIn) {
+		this.res = tIn;
+	}
+	
+	public void storeNewRes(T tIn) {
 		this.res = tIn;
 	}
 	
@@ -117,12 +130,17 @@ public class GenericClassTest_Calc {
 		
 		/* Wrapped in the parametrized class */
 		DotCalculus1D dotCalculus1D2 = new DotCalculus1D(vect_A2, vect_B2);
-		BoxDot<DotCalculus1D> oneDBox = new BoxDot<DotCalculus1D>(dotCalculus1D2);
+		Result result2 = new Result("Initial value 0");
+		BoxDot<DotCalculus1D, Result> oneDBox = new BoxDot<DotCalculus1D, Result>(dotCalculus1D2, result2);
 		System.out.println("1D dot calculus from the BoxDot instance before evaluate:"+ dotCalculus1D2.getDot());
-		// This does not work - The method evaluateDot() is undefined for the type Box<DotCalculus1D>
+		
+		oneDBox.printCurrentResult();
 		oneDBox.evaluateDot();
 		System.out.println("1D dot calculus from the BoxDot instance after evaluate:"+ dotCalculus1D2.getDot());
-
+		/* Calling method from the other parametrized and generic class via wrapping BoxDot */
+		/* We can insert into it any type of object - String and then integer result and print it like this. */
+		oneDBox.printCurrentResult();
+		
 		
 /**
  * Samples of various calculations of the dot product:
