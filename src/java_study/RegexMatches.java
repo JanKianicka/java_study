@@ -45,6 +45,7 @@ public class RegexMatches {
       testRoadCastMetro();
       testNonCapturingGroups();
       TestNetCDF_IvansPattern.compileTestRegexp();
+      testSYNOPCsvFile();
    }
    
    public static void testMetarTAFStrings() {
@@ -196,6 +197,21 @@ public class RegexMatches {
 	   //System.out.println(SPSQ_pattern1Matcher.group());
 	   // We continue on Monday / I want to study in the afternoon
 	   
+   }
+   
+   public static void testSYNOPCsvFile() {
+	   String synopFileName = "202110171248_34_248_S.csv";
+	   //String synopFileName = "202110171248_34_248_C.csv";
+	   String pattern = "(.*)(\\_(S)\\.csv)";
+	   Pattern p = Pattern.compile(pattern);
+	   Matcher m = p.matcher(synopFileName);
+	   System.out.println("Matcher for CSV SYNOP file name:"+ m);
+	   if (m.find()) {
+		   System.out.println("Matcher for CSV SYNOP found.");
+		   System.out.println("Matcher for CSV SYNOP file name - groups: " + m.group());
+		   System.out.println("Matcher for CSV SYNOP file name - groups: " + m.group(2));
+		   System.out.println("Matcher for CSV SYNOP file name - groups: " + m.group(3));
+	   }
    }
    
 }

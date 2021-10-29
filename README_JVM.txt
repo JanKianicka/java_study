@@ -93,6 +93,56 @@ JVMS-SE5.0-Ch3-Overview.pdf
 	other than the Java programming language.
 	Native method stacks are typically allocated per thread when each thread is created.
 	
+2. Frames
+A frame is used to store data and partial results, as well as to
+perform dynamic linking, return values for methods, and dispatch
+exceptions.
+Each frame has its own array of local variables (§3.6.1), its own
+operand stack (§3.6.2), and a reference to the runtime constant pool
+(§3.5.5) of the class of the current method.
+
+ - Local Variables
+On instance method invocation, localvariable 0 is always used to pass
+a reference to the object on which the instance FRAMES 73 method is
+being invoked (this in the Java programming language).
+
+  - Operand Stacks
+Each frame (§3.6) contains a last-in-first-out (LIFO) stack known as
+its operand stack.
+For example, the iadd instruction adds two int values together. It
+requires that the int values to be added be the top two values of the
+operand stack, pushed there by previous instructions. Both of the int
+values are popped from the operand stack. They are added, and their
+sum is pushed back onto the operand stack.
+
+  - Dynamic Linking
+Each frame (§3.6) contains a reference to the runtime constant pool
+(§3.5.5) for the type of the current method to support dynamic linking
+of the method code.
+
+  - Normal Method Invocation Completion
+The current frame (§3.6) is used in this case to restore the state of
+the invoker, including its local variables and operand stack, with the
+program counter of the invoker appropriately incremented to skip past
+the method invocation instruction.
+
+  - Abrupt Method Invocation Completion
+A method invocation that completes abruptly never returns a value to
+its invoker.
+
+3. Floating-Point Arithmetic
+JVM incorporates a subste of IEEE Standard for Binary Floating-Point
+Arithmetic (ANSI/IEEE Std.  754-1985, New York).
+
+The floating-point operations of the Java virtual machine do not throw
+exceptions, trap, or otherwise signal the IEEE 754 exceptional
+conditions of invalid operation, division by zero, overflow,
+underflow, or inexact. The Java virtual machine has no signaling NaN
+value.
+(Implementation test showed that Java 8 fully support NaN - Float.NaN
+ and operations with it. https://www.baeldung.com/java-not-a-number)
+
+
 Ended in chapter 3.6 Frames.
 
 

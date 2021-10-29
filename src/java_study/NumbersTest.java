@@ -12,9 +12,12 @@ public class NumbersTest {
 		/* System.out.println(y.getClass()); -- this does not work for primitive data type */
 		// Returns double primitive data type
         System.out.println(x.doubleValue());
-
+        
+        TestOfFloatingPointArithmentic.testOfZeroDevision();
+        TestOfFloatingPointArithmentic.nanTest();
 	}
 }
+
 
 /*
  * Methods for Number objects:
@@ -104,4 +107,28 @@ Returns a random number.
 
  * 
  * */
+
+class TestOfFloatingPointArithmentic {
+	
+	public static double testOfZeroDevision() {
+		double res = 0.0;
+		res = 15284.2468/0.0;
+		System.out.println("Dived by zero res: " + res);
+		System.out.println(String.format("Dived by zero formated res: %.10f ",res));
+		return res;
+	}
+	
+	public static double nanTest() {
+		double res = 0.0;
+		double a = -1.0;
+		double b = Float.NaN;
+		res = Math.sqrt(a);
+		System.out.println("Sqrt of minus one is: " + res);
+		/* Only way to test whether the number is NaN */
+		if (res != res) {
+			System.out.println("res is NaN");
+		}
+		return res;
+	}
+}
 
