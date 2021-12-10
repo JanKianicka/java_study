@@ -1,6 +1,7 @@
 package java_study;
 
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.DoubleStream;
@@ -77,6 +78,132 @@ public class Java8StreamsTest {
 		// ended here, I would try yet parallelStream, but when executing
 		// average for a big double stream, all logical CPU cores were loaded.
 		
+		CompareHashMapAndStream compObj = new CompareHashMapAndStream();
+		compObj.findUsingGetKey();
+		compObj.findUsingIntStramFilter();
+		compObj.findUsingGetKeyInStringKeys();
+		compObj.findUsingStringStreamFilter();
+		compObj.printStatisticsInfo();
+		
 	}
 
+}
+
+
+class CompareHashMapAndStream {
+	/*
+	 * Create a bit bigger concurrent hash map
+	 * first with integer keys, then with String keys
+	 * Then find there entry and retrieve it.
+	 * 1. Using hasKey, getKey
+	 * 2. Using streams for both
+	 * 
+	 * Result of run with size of the ConcurrentHashMap
+	 * 10 millions records
+	 * Performing 100*10 searches
+	 * 
+	 * Searching in intMap using contains, get took: 22 [ms]
+	 * Searching in intMap using IntStream plus filter, get took: 30365 [ms]
+     * Searching in strMap using contains, get took: 14 [ms]
+     * Searching in strMap using string stream, reduced 10x took: 193643 [ms]
+     * (which would be 193 sec,  3.2 min *10 -> 0.5hour)
+     * 
+	 * */
+	private ConcurrentHashMap<Integer, String> intMap = new  ConcurrentHashMap<Integer, String>();
+	private ConcurrentHashMap<String, String> strMap = new ConcurrentHashMap<String, String>();
+	private int size = 10000000;
+	private String statisticsInfo;
+	private final int [] toBeFound = {5846875, 5346875, 584687, 6875, 6846875, 46875, 584, 8, 5877875, 5846975};
+	
+	public CompareHashMapAndStream() {
+		IntStream.range(0, size).forEachOrdered(x -> intMap.put(x, String.format("String: %d", x)));
+		IntStream.range(0, size).forEachOrdered(x -> strMap.put(String.format("%d", x), String.format("String: %d", x)));
+		
+		System.out.println(String.format("intMap size: %d", intMap.size()));
+		System.out.println(String.format("strMap size: %d", strMap.size()));
+		
+	}
+	
+	public void findUsingGetKey() {
+		long start = System.currentTimeMillis();
+		for (int j=0; j< 100; j++) {
+			for (int i: toBeFound) {
+				if (intMap.containsKey(i)) {
+					System.out.println(String.format("Found int key using containsKey: %s", intMap.get(i)));
+				}
+			}
+		}
+		
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("Searching in intMap using contains, get took: %d [ms]", 
+				end - start));
+		statisticsInfo = String.format("%n%nSearching in intMap using contains, get took: %d [ms]", 
+				end - start);
+	}
+	
+	public void findUsingIntStramFilter() {
+		long start = System.currentTimeMillis();
+		for (int j=0; j< 100; j++) {
+			for (int i: toBeFound) {
+				System.out.println("Found int key using stream filter:" + 
+						intMap.keySet().stream().filter(n -> n > i).findFirst().get());
+			}
+		}
+		
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("Searching in intMap using IntStream plus filter, get took: %d [ms]", 
+				end - start));
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format("Searching in intMap using IntStream plus filter, get took: %d [ms]", 
+						end - start))
+				);
+	}
+	
+	public void findUsingGetKeyInStringKeys() {
+		long start = System.currentTimeMillis();
+		String iStr;
+		for (int j=0; j< 100; j++) {
+			for (int i: toBeFound) {
+				iStr = String.format("%s", i);
+				if (strMap.containsKey(iStr)) {
+					System.out.println(String.format("Found string key using containsKey: %s", strMap.get(iStr)));
+				}
+			}
+		}
+		
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("Searching in strMap using contains, get took: %d [ms]", 
+				end - start));
+		
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format("Searching in strMap using contains, get took: %d [ms]", 
+						end - start))
+				);
+		
+	}
+	
+	public void findUsingStringStreamFilter() {
+		long start = System.currentTimeMillis();
+		for (int j=0; j< 10; j++) {
+			for (int i: toBeFound) {
+				// iStr = String.format("%s", i); - this is not allowed in String stream filtering - varianle out of scope
+				System.out.println("Found int key using string stream filter:" + 
+						strMap.keySet().stream().filter((s) -> s.equals(String.format("%s", i))).findFirst().get()
+						);
+			}
+		}
+		
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("Searching in strMap using string stream, reduced 10x took: %d [ms]", 
+				end - start));
+		
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format("Searching in strMap using string stream, reduced 10x took: %d [ms]", 
+						end - start))
+				);
+	}	
+	
+	public void printStatisticsInfo() {
+		System.out.println(this.statisticsInfo);
+	}	
 }
