@@ -1,9 +1,11 @@
 package java_study;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.IntStream.Builder;
@@ -80,9 +82,13 @@ public class Java8StreamsTest {
 		
 		CompareHashMapAndStream compObj = new CompareHashMapAndStream();
 		compObj.findUsingGetKey();
+		compObj.calculateHashCode();
 		compObj.findUsingIntStramFilter();
 		compObj.findUsingGetKeyInStringKeys();
-		compObj.findUsingStringStreamFilter();
+		// compObj.findUsingStringStreamFilter();
+		
+		compObj.filterAndListUsingStrStream();
+		compObj.filterAndListUsingGet();
 		compObj.printStatisticsInfo();
 		
 	}
@@ -108,16 +114,31 @@ class CompareHashMapAndStream {
      * Searching in strMap using string stream, reduced 10x took: 193643 [ms]
      * (which would be 193 sec,  3.2 min *10 -> 0.5hour)
      * 
+     * Added comparison stream and direct listing in HashMap
+     * and get values.
+     * 
+     * Searching in intMap using contains, get took: 20 [ms]
+     * Calculate hash codes took: intMap 303 [ms], strMap 575 [ms], strMapSmall 0 [ms]
+     * Searching in intMap using IntStream plus filter, get took: 38267 [ms]
+     * Searching in strMap using contains, get took: 11 [ms]
+     * Filtering in strMapSmall from StrObjec using streams took: 5 [ms]
+     * Filtering in strMapSmall from StrObjec using map.values listing took: 3 [ms]
+     * 
 	 * */
 	private ConcurrentHashMap<Integer, String> intMap = new  ConcurrentHashMap<Integer, String>();
 	private ConcurrentHashMap<String, String> strMap = new ConcurrentHashMap<String, String>();
+	private ConcurrentHashMap<String, StrObject> strMapSmall = new ConcurrentHashMap<String, StrObject>();
 	private int size = 10000000;
+	private int sizeSmall = 1000;
 	private String statisticsInfo;
 	private final int [] toBeFound = {5846875, 5346875, 584687, 6875, 6846875, 46875, 584, 8, 5877875, 5846975};
 	
 	public CompareHashMapAndStream() {
 		IntStream.range(0, size).forEachOrdered(x -> intMap.put(x, String.format("String: %d", x)));
 		IntStream.range(0, size).forEachOrdered(x -> strMap.put(String.format("%d", x), String.format("String: %d", x)));
+		IntStream.range(0, sizeSmall).forEachOrdered(x -> strMapSmall.put(String.format("%d", x), new StrObject(
+				String.format("String:%d", x)))
+				);
 		
 		System.out.println(String.format("intMap size: %d", intMap.size()));
 		System.out.println(String.format("strMap size: %d", strMap.size()));
@@ -139,6 +160,33 @@ class CompareHashMapAndStream {
 				end - start));
 		statisticsInfo = String.format("%n%nSearching in intMap using contains, get took: %d [ms]", 
 				end - start);
+	}
+	
+	public void calculateHashCode() {
+		long start = System.currentTimeMillis();
+		intMap.hashCode();
+		long endIntHashCode = System.currentTimeMillis();
+		strMap.hashCode();
+		long endStrHashCode = System.currentTimeMillis();
+		strMapSmall.hashCode();
+		long endStrObjectHashCode = System.currentTimeMillis();
+		
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("Calculate hash codes took: intMap %d [ms], strMap %d [ms], strMapSmall %d [ms]", 
+				endIntHashCode - start, 
+				endStrHashCode - endIntHashCode,
+				endStrObjectHashCode - endStrHashCode
+				));
+		
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format(
+						"Calculate hash codes took: intMap %d [ms], strMap %d [ms], strMapSmall %d [ms]", 
+						endIntHashCode - start, 
+						endStrHashCode - endIntHashCode,
+						endStrObjectHashCode - endStrHashCode
+						)
+				));
+		
 	}
 	
 	public void findUsingIntStramFilter() {
@@ -201,9 +249,63 @@ class CompareHashMapAndStream {
 				(String.format("Searching in strMap using string stream, reduced 10x took: %d [ms]", 
 						end - start))
 				);
-	}	
+	}
+	
+	public void filterAndListUsingStrStream() {
+		long start = System.currentTimeMillis();
+		List<String> res = strMapSmall.values().stream()
+							.map(n -> n.getValue())
+							.filter(n -> n.split(":")[1].toString().startsWith("1"))							
+							.collect(Collectors.toList());
+		for(String in:res) {
+			System.out.println(
+					String.format("Filtered string object: %s", in) //.getValue())
+					);
+		}
+		long end = System.currentTimeMillis();
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format("Filtering in strMapSmall from StrObjec using streams took: %d [ms]", 
+						end - start))
+				);
+	}
+	
+	public void filterAndListUsingGet() {
+		long start = System.currentTimeMillis();
+		List<String> res = new ArrayList<String>();
+		
+		for(StrObject in: strMapSmall.values()) {
+			if(in.getValue().split(":")[1].toString().startsWith("1")) {
+				res.add(in.getValue());
+			}
+		}
+
+		for(String in:res) {
+			System.out.println(
+					String.format("Found string object: %s", in) //.getValue())
+					);
+		}
+		
+		long end = System.currentTimeMillis();
+		statisticsInfo = String.format("%s%n%s",statisticsInfo,
+				(String.format("Filtering in strMapSmall from StrObjec using map.values listing took: %d [ms]", 
+						end - start))
+				);
+	}
+	
 	
 	public void printStatisticsInfo() {
 		System.out.println(this.statisticsInfo);
-	}	
+	}
+	
+	class StrObject {
+		private String str;
+		
+		public StrObject(String in) {
+			str = in;
+		}
+		
+		public String getValue() {
+			return str;
+		}
+	}
 }
