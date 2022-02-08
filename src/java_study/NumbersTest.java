@@ -15,6 +15,10 @@ public class NumbersTest {
         
         TestOfFloatingPointArithmentic.testOfZeroDevision();
         TestOfFloatingPointArithmentic.nanTest();
+        
+        System.out.println(x.parseInt("05"));
+        System.out.println((Integer.parseInt("05:00".split(":")[0]) * 60) +
+        		(Integer.parseInt("05:00".split(":")[1])));
 	}
 }
 
