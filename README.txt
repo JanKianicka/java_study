@@ -173,4 +173,12 @@ This had to be resolved by proper set up in:
   https://medium.com/android-news/java-when-to-use-n-8-0xff-and-when-to-use-byte-n-8-2efd82ae7dd7
 # 10.9.2021 Mstep - in course of IMS4b we have a look on parametrized classes and templates again
   
+# July 2022 -
+Interesting videos from Marcel:
+https://www.youtube.com/watch?v=1OpAgZvYXLQ
+- ended by Lamda and internal iterators
+
+https://www.youtube.com/watch?v=15X0qFtBqiQ
+- not yet watched
+
 
