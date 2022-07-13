@@ -181,4 +181,6 @@ https://www.youtube.com/watch?v=1OpAgZvYXLQ
 https://www.youtube.com/watch?v=15X0qFtBqiQ
 - not yet watched
 
+# 13.7.2021 - collect information about Concurrancy patterns from
+the integration tests of the PreparedTerminal
 
