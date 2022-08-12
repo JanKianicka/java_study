@@ -177,6 +177,8 @@ This had to be resolved by proper set up in:
 Interesting videos from Marcel:
 https://www.youtube.com/watch?v=1OpAgZvYXLQ
 - ended by Lamda and internal iterators
+- on 12.8.2022 end exacly at 60 minutes of the video, using 'mattered' - two colons on two arguments
+  (Needs to be excercised yet)
 
 https://www.youtube.com/watch?v=15X0qFtBqiQ
 - not yet watched
