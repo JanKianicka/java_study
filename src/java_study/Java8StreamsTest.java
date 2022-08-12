@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public class Java8StreamsTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		List<String> myList =
 			    Arrays.asList("a1", "a2", "b1", "c2", "c1");
 
@@ -85,12 +85,47 @@ public class Java8StreamsTest {
 		compObj.calculateHashCode();
 		compObj.findUsingIntStramFilter();
 		compObj.findUsingGetKeyInStringKeys();
-		// compObj.findUsingStringStreamFilter();
+		// compObj.findUsingStringStreamFilter(); -- this is very very slow
 		
 		compObj.filterAndListUsingStrStream();
 		compObj.filterAndListUsingGet();
 		compObj.printStatisticsInfo();
 		
+		int i=10;
+		while(i>0) {
+			compObj.findUsingGetKey();
+			compObj.findUsingGetKeyInStringKeys();
+			i-=1;
+			System.out.println("I:" + i);
+			// Thread.sleep(2000);
+		}
+		compObj.printStatisticsInfo();
+		/*
+		 * Single run with:
+		 * 10 000 000 size of map
+		 * search ran 100 times
+		 * 
+		 * Searching in intMap using contains, get took: 18 [ms]
+		 * Calculate hash codes took: intMap 267 [ms], strMap 481 [ms], strMapSmall 0 [ms]
+         * Searching in intMap using IntStream plus filter, get took: 35502 [ms]
+         * Searching in strMap using contains, get took: 10 [ms]
+         * Searching in strMap using string stream, reduced 10x took: 165620 [ms]
+         * Filtering in strMapSmall from StrObjec using streams took: 7 [ms]
+         * Filtering in strMapSmall from StrObjec using map.values listing took: 3 [ms]
+		 * 
+		 * In order to verify also Just In time compilation
+		 * we run two searches 10 times
+		 * Searching in intMap using contains, get took: 12 [ms]
+         * Searching in strMap using contains, get took: 10 [ms]
+		 * 
+		 * Conclusion:
+		 * -----------
+		 * Using streams on really big data HashMaps
+		 * is sub-optimal.
+		 * Using small String or Integer keys is
+		 * comparable and recommended.
+		 * 
+		 */
 	}
 
 }
