@@ -15,6 +15,15 @@ import java.util.stream.Stream;
  * Examples from Java 8 Streams Tutorial
  * http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
  * 
+ * From the presentation:
+ * https://www.youtube.com/watch?v=1OpAgZvYXLQ
+ * Using java stream might be called:
+ *  - function composition
+ *  - or a pipeline
+ *  
+ *  java.util.stream.Collectors provides concurrency safe 
+ *  transformation for me
+ * 
  */
 
 public class Java8StreamsTest {

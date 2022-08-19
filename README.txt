@@ -179,6 +179,7 @@ https://www.youtube.com/watch?v=1OpAgZvYXLQ
 - ended by Lamda and internal iterators
 - on 12.8.2022 end exacly at 60 minutes of the video, using 'mattered' - two colons on two arguments
   (Needs to be excercised yet)
+- on 19.8.2022 ended at 1:50 on stream collect  
 
 https://www.youtube.com/watch?v=15X0qFtBqiQ
 - not yet watched
